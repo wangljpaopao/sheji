@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <link rel="stylesheet" href="../css/student_motify_1.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <title>论坛学生管理系统</title>
+</head>
+    <body>
+
+    <div id="container">
+        <div id="header">
+            <h1>&nbsp;&nbsp;学生系统管理页面</h1>
+        </div>
+        <div id="menu">
+            <a title="查看已有的课程目录" href="student_check.html" target="_top" class="a_1">
+                查看已有的课程目录->
+            </a>
+            <a title="修改个人信息" href="student_motify.html" target="_top" id="moti">
+                修改个人信息->
+            </a>
+            <a title="返回主页" href="student.html" target="_top" class="a_1">
+                返回主页->
+            </a>
+            <a title="返回主页" href="vue1.html" target="_top" class="a_1">
+                退出->
+            </a>
+        </div>
+        <div id="head">
+            <h2>&nbsp;&nbsp;学生系统 > 个人信息</h2>
+        </div>
+        <div id="mainarea">
+            <div id="select">
+                <a class="a_2" href="student_motify.html">个人信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="a_2" href="student_motify2.html">密码修改</a>
+            </div>
+            <div id="excel">
+                <table class="table">
+                    <tr>
+                        <td height="75px" width="90px">学生编号：</td>
+                        <td id="no" width="300px" height="75px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{info_id}}
+                        </td>
+                    </tr>
+                </table>
+                <table class="table">
+                    <tr>
+                        <td height="75px" width="90px">姓名：</td>
+                        <td id="name" width="300px" height="75px">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{info_name}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#excel',
+            data () {
+                return {
+                    info_id: null,
+                    info_name: null
+                }
+            },
+            mounted(){
+                var c_id_start = document.cookie.indexOf("userid");
+                c_id_start = c_id_start + "userid".length + 1;
+                var c_id_end = document.cookie.indexOf(";",c_id_start);
+                if (c_id_end==-1) {c_id_end=document.cookie.length;}
+                var c_id = unescape(document.cookie.substring(c_id_end,c_id_start));
+                axios
+                    .get('http://localhost:8080/account/searchStudent/' + c_id)
+                    .then(response =>{
+                (this.info_id = response.data.id);
+                (this.info_name = response.data.name);
+            })
+            .catch(function(error){
+                    console.log(error);
+                });
+            }
+        })
+    </script>
+    </body>
+</html>

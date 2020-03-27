@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		<script src="vue.js" type="text/javascript">
+			
+		</script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				
+				background: lightyellow;
+				height: 900px;
+				width: 18%;
+				
+			}
+			.Choose2_1{
+				height: 20%;
+			}
+			.Choose2_2{
+				height: 20%;
+			}
+			.Choose2_3{
+				height: 20%;
+			}
+			
+			.Choose2_1 .choose2_1{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2_2 .choose2_2{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2_3 .choose2_3{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+			
+			#pst{
+				left: 50%;
+				top: 50%;
+				position: absolute;
+				display: block;
+				width: 100%;
+				padding: 0 15px;
+				height: 40px;
+				outline: none;
+				text-align: center;
+				box-sizing: border-box;
+			}
+			
+			
+			#ClassSearchByID{
+				position: absolute;
+				top: 50%;
+				left: 880px;
+				width: 300px;
+				height: 200px;
+				}
+				
+			.Class_search_by_id input{
+				display: block;
+				width: 100%;
+				padding: 0 15px;
+				height: 40px;
+				outline: none;
+				text-align: center;
+				box-sizing: border-box;
+				
+			}
+			
+			
+			
+				
+		
+		</style>
+		<!--退出按钮的函数-->
+		<script type="text/javascript">
+			
+			function button_onclick_out(){
+				window.location.href = "http://www.baidu.com/";
+			}
+			/*向另一个页面传递参数
+			function postdata(){
+						
+				var testdata = 1000001;
+				location.href = "createClass.html";
+				window.localStorage.setItem('data',testdata);
+				
+			}*/
+			
+			function ClassSearch(){
+				
+				var className = document.getElementById('class_id').value;
+				var postdata = className;
+				location.href = "classCharge.html";
+				window.localStorage.setItem('class_name',postdata);
+				
+			}
+			
+		</script>
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			
+			<div id="Choose2_1" class="Choose2_1">
+				<a href="createClass.html" id="choose2_1" class="choose2_1">新建课程-></a>
+			</div>
+			<div id="Choose2_3" class="Choose2_3">
+				<a href="chargeClassInfo.html" id="choose2_3" class="choose2_3">修改课程信息-></a>
+			</div>
+			
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>->
+				<a href="manageClass.html">管理课程</a>->
+				查找目标课程
+			</div>
+		</div>
+		
+		<div id="ClassSearchByID" class="ClassSearchByID">
+			<form class="Class_search_by_id" id="Class_search_by_id" action="techCheck4.html" method="post" >
+				
+				<input type="sign-text" name="class_id" id="class_id" placeholder="课程id" />
+				
+				<input type="button" name="btn" id="btn" value="搜索" onclick="ClassSearch();"/>
+				
+			</form>
+		</div>
+	
+		
+		
+		<!--测试button<div id="test" class="test">
+			<input type="button" name="pst" id="pst" value="数据传输设置" onclick="postdata();" />
+		</div>-->
+		
+		
+
+		
+	</body>
+</html>

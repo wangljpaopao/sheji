@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				height: 700px;
+				background: lightyellow;
+				width: 18%;
+				
+			}
+			/*.Choose1{
+				height: 20%;
+			}*/
+			.Choose1_2{
+				height: 20%;
+			}
+			.Choose1_3{
+				height: 20%;
+			}
+			/*.Choose1 .choose1{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}*/
+			.Choose1_2 .choose1_2{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose1_3 .choose1_3{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+		
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+			
+			#charge_table{
+				position: absolute;
+				top: 110px;
+				left: 600px;
+				
+			}
+				
+				
+		
+			#cbtn{
+				top: 38.75rem;
+				left: 75%;
+				position: absolute;
+				height: 25px;
+				width: 60px;
+			}
+				
+			#maincont{
+				float: right;
+				margin-top: 10px;
+				position: absolute;
+			}
+			
+			#text{
+				left: 25%;
+				width: 800px;
+				height: 200px;
+				position: relative;
+			}
+			
+			#tijiao{
+				top: 40px;
+				left: 150px;
+				width: 60px;
+				height: 30px;
+				position: relative;
+			}
+			
+			#comment{
+				position: relative;
+			}
+			#mainarea{
+				float: left;
+				width: 600px;
+				margin-left:350px;
+			}
+			
+			
+			
+		
+				
+		</style>
+		<!--退出按钮的函数-->
+
+				
+				
+				
+			
+			
+			
+
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			<!--<div id="Choose1_1" class="Choose1_1">
+				<a href="classList.html" id="choose1_1" class="choose1">现有课程总览-></a>
+			</div>-->
+			<div id="Choose1_3" class="Choose1_3">
+				<a href="searchClass.html" id="choose1_3" class="choose1_3">搜索课程-></a>
+			</div>
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>
+				<a href="searchClass.html">->搜索课程</a>->课程信息
+			</div>
+		</div>
+		
+		<div id="mainarea">
+		
+			<div id="charge_table" class="charge_table">
+				 <table class="class_table" id="class_table" border="1" cellspacing="0" >
+					<tr height="60px">
+						<td width="400px" align="center">课程名称</td><td width="500px" v-for="site in info">{{site.name}}</td>
+					</tr>
+					<tr height="60px">
+						<td width="400px" align="center">课程编号</td><td width="500px" v-for="site in info">{{site.id}}</td>
+					</tr>
+					<tr height="60px">
+						<td width="400px" align="center">所属学院</td><td width="500px" v-for="site in info">{{site.school.name}}</td>
+					</tr>
+					<tr height="60px">
+						<td width="400px" align="center">任课教师</td><td width="500px" v-for="site in info">{{site.teacher.name}}</td>
+					</tr>
+					<tr height="60px">
+						<td width="400px" align="center">前置课程</td><td width="500px">{{class_pre}}</td>
+					</tr>
+					
+					<tr height="60px">
+						<td width="400px" align="center">推荐书目</td><td width="500px" contenteditable="true">{{class_book}}</td>
+					</tr>
+					<tr height="120px">
+						<td colspan="1" rowspan="1" width="400px" align="center">课程介绍</td><td width="500px" contenteditable="true">{{class_intro}}</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="maincont">
+			      
+			        <textarea id="text" v-model="main_txt" placeholder="请输入评论">
+			           
+			        </textarea>
+			        <input type="submit" id="tijiao" value="发表" v-on:click="great">
+			        <br>
+			        <br>
+			        <br>
+			        <br>
+			        <br>
+			        <h5>评论列表</h5>
+			        <hr>
+			        <div id="comment">
+			            <div class="comment_1" v-for="(sita,index) in infa">
+			                <p class="man">{{sita.poster_id}}</p>
+			                <p class="huifu" v-if="sita.top">&nbsp;&nbsp;回复：{{sita.reply_id}}&nbsp;&nbsp;&nbsp;楼</p>
+			                <br>
+			                <p class="maintxt">&nbsp;&nbsp;&nbsp;&nbsp;{{sita.content}}</p>
+			                <br>
+			                <br>
+			                <p class="time">{{sita.datetime}}</p>
+			                <p class="number">{{index}}&nbsp;楼</p>
+							<input type="button" value="删除" class="button2" v-on:click="great_3(index)">
+			                <input type="button" value="回复" class="button1" v-on:click="great_1">
+			                <br>
+			                <br>
+			                <textarea class="text1" v-model="main_txt_1" v-if="click_3">
+			                    请输入评论
+			                </textarea>
+			                <br>
+			                <input type="submit" class="tijiao1" value="发表" v-if="click_3" v-on:click="great_2(index)">
+			                <br>
+			                <hr class="change">
+			                <br>
+			            </div>
+			        </div>
+			        
+			    
+		</div>
+			
+			
+			<script>
+				
+				
+				
+				 new Vue({
+					el:'#mainarea',
+					data: {
+						class_pre:null,
+						class_book:null,
+						class_intro:null,
+						info: null,
+						infa:null,
+						sita_id:null,
+						site_id:null,
+						main_txt:null,
+						click_3:false,
+						main_txt_1:null
+					},
+					mounted() {
+						var _this = this;
+						var url1 = window.location.href.indexOf("?id=");
+						url1 = url1 + '?id='.length;
+						var url1_end = window.location.href.indexOf("&name=");
+						var c_id = unescape(window.location.href.substring(url1_end,url1));
+						var url_id = 'http://localhost:8080/curriculum/searchCurrInfoById/' + c_id;
+						console.log(url_id);
+						var url2 = window.location.href.indexOf("name=");
+						url2 = url2 + 'name='.length;
+						var url2_end = window.location.href.length;
+						var c_id_1 = decodeURIComponent(window.location.href.substring(url2_end,url2));
+						var url_name = 'http://localhost:8080/curriculum/searchCurrByName/' + c_id_1;
+						var url_id_1 = 'http://localhost:8080/comment/printComment/' + c_id;
+						console.log(url_name);
+						function geta(){
+							return axios.get(url_name);
+						}
+						function getb(){
+							return axios.get(url_id);
+						}
+						function getc(){
+							return axios.get(url_id_1);
+						}
+						axios.all([geta(),getb(),getc()])
+							.then(axios.spread(function(resA,resB,resC){
+								_this.info = resA.data;
+								_this.class_pre = resB.data.prerequisite;
+								_this.class_book = resB.data.book;
+								_this.class_intro = resB.data.info;
+								_this.infa = resC.data;
+								_this.site_id = resB.data.id;
+							}));
+					},
+					methods: {
+						great: function(){
+							var date = Date.parse(new Date());
+							//获取教师id
+							console.log(date);
+							axios
+								.post('http://localhost:8080/comment/createComment',{
+									id: 2,
+									content: this.main_txt,
+									datetime: date,
+									poster_id: '陈睿',
+									reply_id: -1,
+									top: 0,
+									curriculum_id: this.site_id
+								})
+								.then(response => {
+								location.reload();
+						})
+						},
+						great_1: function(){
+							if(this.click_3 == false){
+								this.click_3 = true;
+							}else{
+								this.click_3 = false;
+							}
+						},
+						great_2: function(index){
+							var date = Date.parse(new Date());
+							axios
+								.post('http://localhost:8080/comment/createComment',{
+									id: 2,
+									content: this.main_txt_1,
+									datetime: date,
+									poster_id: '陈睿',
+									reply_id: index,
+									top: 1,
+									curriculum_id: this.site_id
+								})
+								.then(response => {
+								location.reload();
+						})
+						},
+						great_3: function(index){
+							axios
+									.delete('http://localhost:8080/comment/deleteComment/' + this.infa[index].id)
+									.then(response =>{
+								location.reload()
+							})
+						}
+					}
+					
+					
+				}) 
+			</script> 
+			
+	
+	
+		
+		        
+		        
+	
+		
+
+		
+	</body>
+</html>

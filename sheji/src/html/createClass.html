@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				
+				background: lightyellow;
+				height: 900px;
+				width: 18%;
+				
+			}
+			.Choose2_1{
+				height: 20%;
+			}
+			.Choose2_2{
+				height: 20%;
+			}
+			.Choose2_3{
+				height: 20%;
+			}
+			
+			.Choose2_1 .choose2_1{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2_2 .choose2_2{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2_3 .choose2_3{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+			
+			#CreateClass{
+				position: absolute;
+				left: 47%;
+				top: 200px;
+			
+			}
+			
+			
+			
+			#classname_in{
+				top: 5px;
+				position: absolute;
+				font-size: 25px;
+			}
+			
+			#classid_in{
+				top: 50px;
+				position: absolute;
+				font-size: 25px;
+				
+			}
+			
+			#teacherid_in{
+				top: 95px;
+				position: absolute;
+				font-size: 25px;
+				
+			}
+			
+			#schoolid_in{
+				top: 150px;
+				position: absolute;
+				font-size: 25px;
+				
+			}
+				
+			#book_in{
+				top: 195px;
+				position: absolute;
+				font-size: 25px;
+			}	
+			
+			#preclass_in{
+				top: 240px;
+				position: absolute;
+				font-size: 25px;
+			}
+			
+			#class_info{
+				top: 285px;
+				position: absolute;
+				height: 200px;
+				width: 350px;
+			}
+				
+			#createclass{
+				top: 510px;
+				left: 280px;
+				width: 70px;
+				height: 30px;
+				position: absolute;
+			}
+			#class{
+				float: left;
+				margin-top: 500px;
+				margin-left: 20px;
+			}
+		
+		</style>
+
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			
+			<div id="Choose2_1" class="Choose2_1">
+				<a href="createClass.html" id="choose2_1" class="choose2_1">新建课程-></a>
+			</div>
+			<div id="Choose2_3" class="Choose2_3">
+				<a href="chargeClassInfo.html" id="choose2_3" class="choose2_3">修改课程信息-></a>
+			</div>
+			
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>->
+				<a href="manageClass.html">课程管理</a>->新建课程
+			</div>
+		</div>
+		
+		<div id="CreateClass">
+			
+			<input type="text" name="classname_in" id="classname_in" class="classname_in" v-model="info_name" placeholder="课程名称" />
+			
+			<input type="text" name="classid_in" id="classid_in" class="classid_in" v-model="info_id" placeholder="课程编号" />
+			
+			<input type="text" name="teacherid_in" id="teacherid_in" class="teacherid_in" v-model="info_psd" placeholder="教师编号" />
+			
+			<input type="text" name="schoolid_in" id="schoolid_in" class="schoolid_in" v-model="info_pswd" placeholder="学院编号" />
+			
+			<input type="text" name="book_in" id="book_in" class="book_in" v-model="info_book" placeholder="推荐书目" />
+			
+			<input type="text" name="preclass_in" id="preclass_in" class="preclass_in" v-model="info_class" placeholder="先修课程" />
+			
+			<textarea  id="class_info" class="class_info" v-model="info_intro" placeholder="课程介绍"></textarea>
+			
+			<input type="button" name="createclass" id="class" value="创建课程" v-on:click="great" />
+			
+		</div>
+		
+		<script>
+			new Vue({
+				el:'#CreateClass',
+				data:{
+					info_name:null,
+					info_id:null,
+					info_psd:null,
+					info_pswd:null,
+					info_book:null,
+					info_class:null,
+					info_intro:null
+				},
+				methods: {
+					great: function(){
+						if(isNaN(this.info_id) != false){
+							alert('科目编号不为数字')
+						}else{
+							var _this = this;
+							function posta(){
+								return axios.post('http://localhost:8080/curriculum/createCurriculum',{
+									id: _this.info_id,
+									name: _this.info_name,
+									school_id: _this.info_pswd,
+									teacher_id: _this.info_psd
+								});
+							}
+							function postb(){
+								return axios.post('http://localhost:8080/curriculum/createCurrInfo',{
+									id: _this.info_id,
+									book: _this.info_book,
+									info: _this.info_intro,
+									prerequisite: _this.info_class
+								});
+							}
+							axios.all([posta(),postb()])
+								.then(axios.spread(function(resA,resB){
+									alert("创建成功");
+								}));
+						}
+					}
+				}
+				
+			})
+		</script>
+
+		
+	</body>
+</html>

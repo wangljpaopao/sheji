@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <link rel="stylesheet" href="../css/admin_lessonMoti_detail3_1.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <title>管理员管理系统</title>
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+        <h1>&nbsp;&nbsp;管理员系统管理页面</h1>
+    </div>
+    <div id="menu">
+        <a title="查看自己的课程目录" href="admin_check.html" target="_top" class="a_1">
+            查看已有的课程目录->
+        </a>
+        <a title="课程信息维护" href="admin_lessonMoti.html" target="_top" id="lesson">
+            课程信息维护->
+        </a>
+        <a title="教师信息维护" href="admin_teacherMoti.html" target="_top" class="a_1">
+            教师信息维护->
+        </a>
+        <a title="学生信息维护" href="admin_studentMoti.html" target="_top" class="a_1">
+            学生信息维护->
+        </a>
+        <a href="admin.html" target="_top" class="a_1">
+            返回主页->
+        </a>
+        <a title="返回主页" href="vue1.html" target="_top" class="a_1">
+            退出->
+        </a>
+    </div>
+    <div id="head">
+        <h2>&nbsp;&nbsp;管理系统 > 课程信息维护</h2>
+    </div>
+    <div id="mainarea">
+        <div id="select">
+            <a class="a_2" v-on:click="click1">课程信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="a_2" v-on:click="click2">更改信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="a_2" v-on:click="click3">删除信息</a>
+        </div>
+        <div id="excel">
+            <h3>确认要删除该课程信息？</h3>
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="button" value="确认删除" v-on:click="great">
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#mainarea',
+        methods: {
+            great: function () {
+                var url1 = window.location.href.indexOf("?id=");
+                url1 = url1 + '?id='.length;
+                var url1_end = window.location.href.indexOf("&name=");
+                var c_id = unescape(window.location.href.substring(url1_end,url1));
+                var url_id = 'http://localhost:8080/curriculum/deleteCurrInfoById/' + c_id;
+                var url_id_1 = 'http://localhost:8080/curriculum/deleteCurriculumById/' + c_id;
+                function deletea() {
+                    return axios.delete(url_id)
+                }
+
+                function deleteb() {
+                    return axios.delete(url_id_1)
+                }
+
+                axios.all([deletea(), deleteb()])
+                    .then(axios.spread(function (resA, resB) {
+                        alert('删除成功');
+                        window.location.href = 'admin_lessonMoti.html';
+                    }))
+            },
+            click1: function(){
+                var url3 = window.location.href.indexOf("?id=");
+                url3 = url3 + '?id='.length;
+                var url3_end = window.location.href.indexOf("&name=");
+                var c_id_3 = unescape(window.location.href.substring(url3_end,url3));
+                var url4 = window.location.href.indexOf("name=");
+                url4 = url4 + 'name='.length;
+                var url4_end = window.location.href.length;
+                var c_id_4 = decodeURIComponent(window.location.href.substring(url4_end,url4));
+                window.location.href = 'admin_lessonMoti_detail.html?id=' + c_id_3 + '&name=' + c_id_4;
+            },
+            click2: function(){
+                var url3 = window.location.href.indexOf("?id=");
+                url3 = url3 + '?id='.length;
+                var url3_end = window.location.href.indexOf("&name=");
+                var c_id_3 = unescape(window.location.href.substring(url3_end,url3));
+                var url4 = window.location.href.indexOf("name=");
+                url4 = url4 + 'name='.length;
+                var url4_end = window.location.href.length;
+                var c_id_4 = decodeURIComponent(window.location.href.substring(url4_end,url4));
+                window.location.href = 'admin_lessonMoti_detail2.html?id=' + c_id_3 + '&name=' + c_id_4;
+            },
+            click3: function(){
+                var url3 = window.location.href.indexOf("?id=");
+                url3 = url3 + '?id='.length;
+                var url3_end = window.location.href.indexOf("&name=");
+                var c_id_3 = unescape(window.location.href.substring(url3_end,url3));
+                var url4 = window.location.href.indexOf("name=");
+                url4 = url4 + 'name='.length;
+                var url4_end = window.location.href.length;
+                var c_id_4 = decodeURIComponent(window.location.href.substring(url4_end,url4));
+                window.location.href = 'admin_lessonMoti_detail3.html?id=' + c_id_3 + '&name=' + c_id_4;
+            }
+        }
+    })
+</script>
+</body>
+</html>

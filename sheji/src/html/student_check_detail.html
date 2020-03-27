@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <link rel="stylesheet" href="../css/student_check_detail_1.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <title>论坛学生管理系统</title>
+</head>
+
+
+<body>
+<div id="container">
+    <div id="header">
+        <h1>&nbsp;&nbsp;学生系统管理页面</h1>
+    </div>
+    <div id="menu">
+        <a title="查看已有的课程目录" href="student_check.html" target="_top" class="a_1">
+            查看已有的课程目录->
+        </a>
+        <a title="修改个人信息" href="student_motify.html" target="_top" class="a_1">
+            修改个人信息->
+        </a>
+        <a title="返回主页" href="student.html" target="_top" class="a_1">
+            返回主页->
+        </a>
+        <a title="返回主页" href="vue1.html" target="_top" class="a_1">
+            退出->
+        </a>
+    </div>
+    <div id="head">
+        <h2>&nbsp;&nbsp;学生系统 > 自己的课程</h2>
+    </div>
+    <div id="mainarea">
+        <div id="left">
+            <h3 v-for="site in info">{{site.name}}</h3>
+            <br>
+            <h4>课程简介</h4>
+            <hr>
+            <p>{{site_intro}}</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+        <div id="excel">
+            <table border="1" id="table">
+                <tr>
+                    <th height="75px">课程编号</th>
+                    <td id="no" width="300px" height="75px" v-for="site in info">{{site.id}}</td>
+                </tr>
+                <tr>
+                    <th height="75px">所属学院</th>
+                    <td id="school" width="300px" height="75px" v-for="site in info">{{site.school.name}}</td>
+                </tr>
+                <tr>
+                    <th height="75px">任课教师</th>
+                    <td id="teacher" width="300px" height="75px" v-for="site in info">{{site.teacher.name}}</td>
+                </tr>
+                <tr>
+                    <th height="75px">教师邮箱</th>
+                    <td id="email" width="300px" height="75px" v-for="site in info">{{site.teacher.email}}</td>
+                </tr>
+            </table>
+        </div>
+        <div id="maincont">
+            <h5>先修课程</h5>
+            <hr>
+            <p>{{site_pre}}</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h6>推荐书目</h6>
+            <hr>
+            <p>{{site_book}}</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h8>教师个人简介</h8>
+            <hr>
+            <p v-for="site in info">{{site.teacher.intro}}</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <textarea id="text" v-model="main_txt">
+                请输入评论
+            </textarea>
+            <input type="submit" id="tijiao" value="发表" v-on:click="great">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h7>评论列表</h7>
+            <hr>
+            <div id="comment">
+                <div class="comment_1" v-for="(sita,index) in infa">
+                <p class="man">{{sita.poster_id}}</p>
+                    <p class="huifu" v-if="sita.top">&nbsp;&nbsp;回复：{{sita.reply_id}}&nbsp;&nbsp;&nbsp;楼</p>
+                <br>
+                    <p class="maintxt">&nbsp;&nbsp;&nbsp;&nbsp;{{sita.content}}</p>
+                    <br>
+                    <br>
+                    <p class="time">{{sita.datetime}}</p>
+                    <p class="number">{{index}}&nbsp;楼</p>
+                    <input type="button" value="回复" class="button1" v-on:click="great_1">
+                    <br>
+                    <br>
+                    <textarea class="text1" v-model="main_txt_1" v-if="click_3">
+                        请输入评论
+                    </textarea>
+                    <br>
+                    <input type="submit" class="tijiao1" value="发表" v-if="click_3" v-on:click="great_2(index)">
+                    <br>
+                    <hr class="change">
+                    <br>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+<script>
+
+    new Vue({
+        el: '#mainarea',
+        data () {
+            return {
+                info: null,
+                site_pre: null,
+                site_book: null,
+                site_intro: null,
+                infa: null,
+                sita_id: null,
+                site_id: null,
+                main_txt: null,
+                click_3: false,
+                main_txt_1: null
+            }
+        },
+        mounted(){
+            var _this = this;
+            var url1 = window.location.href.indexOf("?id=");
+            url1 = url1 + '?id='.length;
+            var url1_end = window.location.href.indexOf("&name=");
+            var c_id = unescape(window.location.href.substring(url1_end,url1));
+            var url_id = 'http://localhost:8080/curriculum/searchCurrInfoById/' + c_id;
+            var url2 = window.location.href.indexOf("name=");
+            url2 = url2 + 'name='.length;
+            var url2_end = window.location.href.length;
+            var c_id_1 = decodeURIComponent(window.location.href.substring(url2_end,url2));
+            var url_name = 'http://localhost:8080/curriculum/searchCurrByName/' + c_id_1;
+            var url_id_1 = 'http://localhost:8080/comment/printComment/' + c_id;
+            var c_id_start = document.cookie.indexOf("userid");
+            c_id_start = c_id_start + "userid".length + 1;
+            var c_id_end = document.cookie.indexOf(";",c_id_start);
+            if (c_id_end==-1) {c_id_end=document.cookie.length;}
+            var c_id_2 = unescape(document.cookie.substring(c_id_end,c_id_start));
+            function geta(){
+                return axios.get(url_name);
+            }
+            function getb(){
+                return axios.get(url_id);
+            }
+            function getc(){
+                return axios.get(url_id_1);
+            }
+            function getd(){
+                return axios.get('http://localhost:8080/account/searchStudent/' + c_id_2)
+            }
+            axios.all([geta(),getb(),getc(),getd()])
+                .then(axios.spread(function(resA,resB,resC,resD){
+                        _this.info = resA.data;
+                        _this.site_pre = resB.data.prerequisite;
+                        _this.site_book = resB.data.book;
+                        _this.site_intro = resB.data.info;
+                        _this.infa = resC.data;
+                        _this.sita_id = resD.data.name;
+                        _this.site_id = resB.data.id;
+                    }
+                    )
+                );
+
+
+        },
+        methods: {
+            great: function(){
+                var date = Date.parse(new Date());
+                console.log(date);
+                axios
+                    .post('http://localhost:8080/comment/createComment',{
+                        id: 2,
+                        content: this.main_txt,
+                        datetime: date,
+                        poster_id: this.sita_id,
+                        reply_id: -1,
+                        top: 0,
+                        curriculum_id: this.site_id
+                    })
+                    .then(response => {
+                    location.reload();
+            })
+            },
+            great_1: function(){
+                if(this.click_3 == false){
+                    this.click_3 = true;
+                }else{
+                    this.click_3 = false;
+                }
+            },
+            great_2: function(index){
+                var date = Date.parse(new Date());
+                axios
+                    .post('http://localhost:8080/comment/createComment',{
+                        id: 2,
+                        content: this.main_txt_1,
+                        datetime: date,
+                        poster_id: this.sita_id,
+                        reply_id: index,
+                        top: 1,
+                        curriculum_id: this.site_id
+                    })
+                    .then(response => {
+                        location.reload();
+                })
+            }
+        }
+
+    })</script>
+</body>
+</html>

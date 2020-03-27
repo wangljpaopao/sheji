@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <link rel="stylesheet" href="../css/admin_studentMoti_detail_new_1.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <title>管理员管理系统</title>
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+        <h1>&nbsp;&nbsp;管理员系统管理页面</h1>
+    </div>
+    <div id="menu">
+        <a title="查看自己的课程目录" href="admin_check.html" target="_top" class="a_1">
+            查看已有的课程目录->
+        </a>
+        <a title="课程信息维护" href="admin_lessonMoti.html" target="_top" class="a_1">
+            课程信息维护->
+        </a>
+        <a title="教师信息维护" href="admin_teacherMoti.html" target="_top" class="a_1">
+            教师信息维护->
+        </a>
+        <a title="学生信息维护" href="admin_studentMoti.html" target="_top" id="student">
+            学生信息维护->
+        </a>
+        <a href="admin.html" target="_top" class="a_1">
+            返回主页->
+        </a>
+        <a title="返回主页" href="vue1.html" target="_top" class="a_1">
+            退出->
+        </a>
+    </div>
+    <div id="head">
+        <h2>&nbsp;&nbsp;管理系统 > 学生信息维护</h2>
+    </div>
+    <div id="mainarea">
+        <div id="select">
+            <a class="a_2" href="admin_studentMoti_detail_new.html">新建个人信息</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div id="excel">
+            <table class="table">
+                <tr>
+                    <td height="75px" width="90px">学生编号：</td>
+                    <td id="no" width="300px" height="75px">
+                        <input type="text" v-model="info_id">
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table class="table">
+                <tr>
+                    <td height="75px" width="90px">姓名：</td>
+                    <td id="name" width="300px" height="75px">
+                        <input type="text" v-model="info_name">
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td height="75px" width="90px">密码：</td>
+                    <td id="psaa" width="300px" height="75px">
+                        <input type="password" v-model="info_pswd">
+                    </td>
+                </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td height="75px" width="90px">确认密码：</td>
+                    <td id="passNew" width="300px" height="75px">
+                        <input type="password" v-model="info_psd">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="queren">
+            <input type="button" value="新建" v-on:click="great">
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#mainarea',
+        data: {
+                info_id: null,
+                info_name: null,
+                info_pswd: null,
+                info_psd: null
+        },
+        methods: {
+            great: function() {
+                if ( isNaN(this.info_id) != false || this.info_pswd != this.info_psd) {
+                    alert('学生编号不为8位数字或者输入密码不一致')
+                } else {
+                    axios
+                        .post('http://localhost:8080/account/createStudentAccount',
+                    {
+                        id: this.info_id,
+                        name: this.info_name,
+                        password: this.info_pswd
+                    }
+                )
+                .then(response => {
+                        alert('新建成功')
+                })
+                .catch(function (error) {
+                        console.log(error);
+                    });
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

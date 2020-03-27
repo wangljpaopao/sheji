@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				
+				background: lightyellow;
+				height: 900px;
+				width: 18%;
+				
+			}
+			/*.Choose1{
+				height: 20%;
+			}*/
+			.Choose1_2{
+				height: 20%;
+			}
+			.Choose1_3{
+				height: 20%;
+			}
+			/*.Choose1 .choose1{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}*/
+			.Choose1_2 .choose1_2{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose1_3 .choose1_3{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+		
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+				
+				
+			#ClassSearchByID{
+				position: absolute;
+				top: 50%;
+				left: 880px;
+				width: 300px;
+				height: 200px;
+				}
+				
+			.Class_search_by_id input{
+				display: block;
+				width: 100%;
+				padding: 0 15px;
+				height: 40px;
+				outline: none;
+				text-align: center;
+				box-sizing: border-box;
+				
+			}
+		
+				
+		
+		</style>
+		<!--退出按钮的函数-->
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			<!--<div id="Choose1_1" class="Choose1_1">
+				<a href="classList.html" id="choose1_1" class="choose1">现有课程总览-></a>
+			</div>-->
+			<div id="Choose1_3" class="Choose1_3">
+				<a href="searchClass.html" id="choose1_3" class="choose1_3">搜索课程-></a>
+			</div>
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>->搜索课程
+			</div>
+		</div>
+		
+		<div id="ClassSearchByID" class="ClassSearchByID">
+			<form class="Class_search_by_id" id="Class_search_by_id" action="techCheck4.html" method="post" >
+				
+				<input type="sign-text" name="class_id" id="class_id" placeholder="课程名称" v-model="class_name_1"/>
+				
+				<input type="button" name="btn" id="btn" value="搜索" v-on:click="great"/>
+				
+			</form>
+		</div>
+
+	<script>
+		new Vue({
+			el: '#ClassSearchByID',
+			data: {
+				class_name_1: null
+			},
+			methods: {
+				great: function () {
+					var url = "http://localhost:8080/curriculum/searchCurrByName/" + this.class_name_1;
+					axios
+							.get(url)
+							.then(response =>{
+								window.location.href='classInfo.html?id='+ response.data[0].id + '&name=' + response.data[0].name;
+					})
+				}
+			}
+		})
+	</script>
+
+		
+	</body>
+</html>

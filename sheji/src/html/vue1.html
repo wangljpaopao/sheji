@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>课程设计</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/vue1_2.css">
+
+</head>
+<body>
+<h1>吉林大学课程学习论坛</h1>
+<div id="main">
+<div class="lt-login box">
+                <form method="post" id="form1">
+                    <div class="fieldText">
+                        <input type="text" name="userName"  id="name" placeholder="用户名" required="" v-model="sita_id">
+                    </div>
+                    <div class="fieldText">
+                        <input type="password" name="password" id="password" placeholder="密码" required="" v-model="sita_pwd">
+                        <div class="loginLabel">
+                            <input id="check3" name="check3" type="checkbox" value="show password" v-on:click="change">
+                            <label class="check" for="check3">显示密码</label>
+                        </div>
+                    </div>
+                    <div class="lt-bot">
+                        <input type="button" value="登录" v-on:click="great">
+                    </div>
+                </form>
+</div>
+</div>
+
+<script>
+    new Vue({
+        el: '#main',
+        data: {
+            flag: true,
+            sita_id: null,
+            sita_pwd: null
+        },
+        methods: {
+            change: function(){
+                if(this.flag){
+                    document.getElementById('password').type = 'text';
+                    this.flag = false;
+                }else{
+                    document.getElementById('password').type = 'password';
+                    this.flag = true;
+                }
+            },
+            great: function(){
+                if(this.sita_id == '10011001' && this.sita_pwd == '007007'){
+                    alert('登陆成功');
+                    window.location.href='admin.html';
+                }else{
+                    var _this = this;
+                    function geta(){
+                        var url1 = "http://localhost:8080/account/signTeacher/" + _this.sita_id + "/" + _this.sita_pwd;
+                        return axios.get(url1);
+                    }
+                    function getb(){
+                        var url2 = "http://localhost:8080/account/signStudent/" + _this.sita_id + "/" +  _this.sita_pwd;
+                        return axios.get(url2);
+                    }
+                    axios.all([geta(),getb()])
+                        .then(axios.spread(function(resA,resB){
+                            var res1 = resA.data;
+                            var res2 = resB.data;
+                            if(res1 == true && res2 == false){
+                                alert("登陆成功");
+                                window.location.href = 'mainPage.html';
+                                document.cookie = "userid=" + _this.sita_id + ";";
+                            }else if(res1 == false && res2 == true){
+                                alert("登陆成功");
+                                window.location.href = 'student.html';
+                                document.cookie = "userid=" + _this.sita_id + ";";
+                            }else{
+                                alert("信息错误，登陆失败");
+                            }
+                        }))
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+
+

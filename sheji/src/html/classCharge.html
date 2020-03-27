@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				
+				background: lightyellow;
+				height: 900px;
+				width: 18%;
+				
+			}
+			.Choose2_1{
+				height: 20%;
+			}
+			.Choose2_2{
+				height: 20%;
+			}
+			.Choose2_3{
+				height: 20%;
+			}
+			
+			.Choose2_1 .choose2_1{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2_2 .choose2_2{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2_3 .choose2_3{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+			
+			#pst{
+				left: 50%;
+				top: 50%;
+				position: absolute;
+				display: block;
+				width: 100%;
+				padding: 0 15px;
+				height: 40px;
+				outline: none;
+				text-align: center;
+				box-sizing: border-box;
+			}
+			
+			
+			#ClassSearchByID{
+				position: absolute;
+				top: 50%;
+				left: 880px;
+				width: 300px;
+				height: 200px;
+				}
+				
+			.Class_search_by_id input{
+				display: block;
+				width: 100%;
+				padding: 0 15px;
+				height: 40px;
+				outline: none;
+				text-align: center;
+				box-sizing: border-box;
+				
+			}
+			
+			#class_info{
+				position: absolute;
+				left: 47%;
+				top: 200px;
+			}
+			
+			#p1{
+				left: 47%;
+				top: 205px;
+				position: absolute;
+				font-size: 25px;
+			}
+			
+			#prebook{
+				left: 47%;
+				top: 250px;
+				font-size: 25px;
+				position: absolute;
+			}
+			
+			#book{
+				left: 47%;
+				top: 295px;
+				font-size: 25px;
+				position: absolute;
+			}
+			
+			#preintro{
+				left: 47%;
+				top: 340px;
+				font-size: 25px;
+				position: absolute;
+			}
+			
+			#intro{
+				left: 47%;
+				top: 385px;
+				font-size: 25px;
+				position: absolute;
+			}
+			
+			#prec{
+				left: 47%;
+				top: 430px;
+				font-size: 25px;
+				position: absolute;
+			}
+			
+			#cl{
+				left: 47%;
+				top: 475px;
+				font-size: 25px;
+				position: absolute;
+			}
+			
+			#charge{
+				top: 510px;
+				left: 59%;
+				width: 90px;
+				height: 30px;
+				position: absolute;
+			}
+			
+				
+		
+		</style>
+		<!--退出按钮的函数-->
+		<script type="text/javascript">
+			
+			function button_onclick_out(){
+				window.location.href = "http://www.baidu.com/";
+			}
+			
+			/*向另一个页面传递参数
+			function postdata(){
+						
+				var testdata = 1000001;
+				location.href = "createClass.html";
+				window.localStorage.setItem('data',testdata);
+				
+			}*/
+			
+			window.onload = function(){
+				
+				var get_class_id = window.localStorage.getItem('class_name');
+				
+				document.getElementById('p1').innerHTML = get_class_id;
+				
+				
+				
+				
+			}
+			
+		</script>
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			
+			<div id="Choose2_1" class="Choose2_1">
+				<a href="createClass.html" id="choose2_1" class="choose2_1">新建课程-></a>
+			</div>
+			<div id="Choose2_3" class="Choose2_3">
+				<a href="chargeClassInfo.html" id="choose2_3" class="choose2_3">修改课程信息-></a>
+			</div>
+			
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>->
+				<a href="manageClass.html">管理课程</a>->
+				<a href="chargeClassInfo.html">查找目标课程</a>->修改课程信息
+			</div>
+		</div>
+		
+		<div id="ClassInfoCharge">
+			
+			<p id="p1"></p>
+			
+			<input type="text" id="prebook" v-model="pre_book" readonly="readonly" />
+			<input type="text" id="book" v-model="info_book" placeholder="推荐书目"/>
+			
+			<input type="text" id="preintro" v-model="pre_intro" readonly="readonly" />
+			<input type="text" id="intro" v-model="info_intro" placeholder="课程信息"/>
+			
+			<input type="text" id="prec" v-model="pre_class" readonly="readonly" />
+			<input type="text" id="cl" v-model="info_cl" placeholder="先修课程" />
+			
+			<input type="button" id="charge" value="修改课程信息" v-on:click="great" />
+			
+			
+		</div>
+		
+		
+		<script>
+			
+			new Vue({
+				el:'#ClassInfoCharge',
+				data: {
+					
+						pre_book:null,
+						pre_intro:null,
+						pre_class:null,
+						info_book:null,
+						info_intro:null,
+						info_cl:null
+					
+				},
+				mounted(){
+					var  _this = this;
+					var id = window.localStorage.getItem('class_name');
+					var url1 = "http://localhost:8080/curriculum/searchCurrInfoById/"+id;
+					console.log(url1);
+					function geta(){
+						return axios.get(url1);
+					}
+					axios.all([geta()])
+						.then(axios.spread(function(resA){
+							_this.pre_book = resA.data.book;
+							_this.pre_class = resA.data.prerequisite;
+							_this.pre_intro = resA.data.info;
+						}));
+				},
+						
+				methods:{
+					
+					great: function(){
+						var id_1 = window.localStorage.getItem('class_name');
+						var _this = this;
+						axios.put('http://localhost:8080/curriculum/updateCurrInfo',{
+							id: id_1,
+							info: _this.info_intro,
+							prerequisite: _this.info_cl,
+							book: _this.info_book
+						})
+						.then(response => {
+							location.reload();
+						})
+					}
+							
+				}
+				
+				
+				
+			
+		
+				
+			})
+			
+			
+			
+		</script>
+		
+		
+		
+		<!--测试button<div id="test" class="test">
+			<input type="button" name="pst" id="pst" value="数据传输设置" onclick="postdata();" />
+		</div>-->
+		
+		
+
+		
+	</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+		
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				
+				background: lightyellow;
+				height: 900px;
+				width: 18%;
+				
+			}
+			.Choose1{
+				height: 20%;
+			}
+			.Choose2{
+				height: 20%;
+			}
+			.Choose3{
+				height: 20%;
+			}
+			
+			.Choose1 .choose1{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2 .choose2{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose3 .choose3{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+			
+			#ChargeTeacherInfo{
+				position: absolute;
+				top: 30%;
+				left: 40%;
+			}
+			
+			#t_intro{
+				
+				width: 500px;
+				height: 300px;
+				position: absolute;
+			}
+			
+			#charge{
+				top: 320px;
+				left: 420px;
+				width: 90px;
+				height: 30px;
+				position: absolute;
+			}
+			
+		
+				
+		
+		</style>
+		<!--退出按钮的函数-->
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			<div id="Choose1" class="Choose1">
+				<a href="teacherManage.html" id="choose1" class="choose1">查询看个人信息-></a>
+			</div>
+			<div id="Choose2" class="Choose2">
+				<a href="chargeMyInfo.html" id="choose2" class="choose2">修改个人信息-></a>
+			</div>
+			<div id="Choose3" class="Choose3">
+				<a href="chargePWD.html" id="choose3" class="choose3">修改密码-></a>
+			</div>
+			
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>->
+				<a href="teacherManage.html">个人信息管理</a>->修改个人信息
+			</div>
+		</div>
+		
+		<div id="ChargeTeacherInfo">
+			
+			<textarea id="t_intro" v-model="teacher_intro" >
+				
+				
+				
+			</textarea>
+			
+			
+			
+			<input type="button" id="charge" value="修改个人介绍" v-on:click="great" />
+		</div>
+		
+		<script>
+			
+			new Vue({
+				el:'#ChargeTeacherInfo',
+				data:{
+					teacher_intro: null
+				},
+				
+				methods:{
+					great:function(){
+						var _this = this;
+						var c_id_start = document.cookie.indexOf("userid");
+						c_id_start = c_id_start+"userid".length+1;
+						var c_id_end = document.cookie.indexOf(";",c_id_start);
+						if(c_id_end==-1){c_id_end = document.cookie.length;}
+						var tid = unescape(document.cookie.substring(c_id_end,c_id_start));
+						
+						var url = "http://localhost:8080/account/updateTeacherInfo/"+tid+"/"+_this.teacher_intro;
+						function posta(){
+							return axios.put(url);
+						}
+						axios.all([posta()])
+							.then(axios.spread(function(resA){
+								alert("修改成功");
+								window.location.href("teacherManage.html");
+							}));
+						
+											
+						}
+						
+				}
+				
+			})
+			
+		</script>
+		
+
+		
+	</body>
+</html>

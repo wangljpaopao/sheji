@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>techCheck1</title>
+		<script src="vue.js" type="text/javascript">
+			
+		</script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#header{
+				height: 70px;
+				width: 100%;
+				background-color: #66CCCC;
+				text-align: center;
+				position: relative;
+				
+			}
+			.title{
+				font-family: "宋体";
+				color:white;
+				position: absolute;
+				top:50%;
+				left: 5%;
+				transform: translate(-50%,-50%);
+				font-size: 24px;
+				height: 30px;
+				width:30%;
+				font-weight: bold;
+			}
+			.out{
+				top: 52%;
+				left: 97%;
+				position: relative;
+				height: 12px;
+				width: 8px;
+			}
+			
+			#choice{
+				
+				background: lightyellow;
+				height: 900px;
+				width: 18%;
+				
+			}
+			.Choose1{
+				height: 20%;
+			}
+			.Choose2{
+				height: 20%;
+			}
+			.Choose3{
+				height: 20%;
+			}
+			
+			.Choose1 .choose1{
+				top: 50%;
+				left: 20px;
+				color: lightcoral;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose2 .choose2{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			.Choose3 .choose3{
+				top: 50%;
+				left: 20px;
+				color: lightgray;
+				text-decoration: none;
+				height: 50%;
+				font-size: 30px;
+				font-weight: bold;
+				position: relative;
+			}
+			
+			
+			
+			#lead{
+				
+				background: #66CCCC;
+				top: 80px;
+				height: 40;
+				left: 18%;
+				width: 82%;
+				position: absolute;
+				
+			}
+			.leadtext{
+				font-family: "宋体";
+				color: #FFFFFF;
+				top: 20px;
+				left: 20px;
+				font-size: 25px;
+			}
+			
+			#InformationShow{
+				
+				position: absolute;
+				top: 180px;
+				left: 600px;
+				
+			}
+		
+				
+		
+		</style>
+		<!--退出按钮的函数-->
+		<script type="text/javascript">
+			
+			function button_onclick_out(){
+				window.location.href = "http://www.baidu.com/";
+			}
+			
+			window.onload = function(){var c_id_start = document.cookie.indexOf("userid");
+				c_id_start = c_id_start + "userid".length + 1;
+				var c_id_end = document.cookie.indexOf(";",c_id_start);
+				if (c_id_end==-1) {c_id_end=document.cookie.length;}
+				var c_id = unescape(document.cookie.substring(c_id_end,c_id_start));var getId = document.cookie;
+				
+				var url = "http://localhost:8080/account/searchTeacher/" + c_id;
+				
+				var xmlhttp;
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				xmlhttp.onreadystatechange=function()
+				  {
+				  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				    {	
+						var data = eval("("+xmlhttp.response+")");	
+						
+						var tname = data.name;
+						var tid = data.id;
+						var intro = data.intro;
+						var email = data.email;
+						var school = data.school.name;
+						
+						var t1 = document.getElementById('informationTable').rows[0].cells[1].innerText = tname;
+						var t2 = document.getElementById('informationTable').rows[1].cells[1].innerText = tid;
+						var t3 = document.getElementById('informationTable').rows[2].cells[1].innerText = intro;
+						var t4 = document.getElementById('informationTable').rows[3].cells[1].innerText = email;
+						var t5 = document.getElementById('informationTable').rows[4].cells[1].innerText = school;
+						
+				    }
+				  }
+				xmlhttp.open("GET",url,true);
+				xmlhttp.send();
+				
+				
+				
+				
+			}
+			
+		</script>
+	</head>
+	
+	
+	
+	<body>
+		<div class="header" id="header">
+			<div class="title">
+				管理界面
+			</div>
+			
+			<div class = "out" id = "out">
+				<input type="button" name="out" id="out" value="退出" onclick="window.location.href='vue1.html'" />
+			</div>
+		</div>
+		
+		
+		<div id="choice" class="choice">
+			<div id="Choose1" class="Choose1">
+				<a href="teacherManage.html" id="choose1" class="choose1">查询看个人信息-></a>
+			</div>
+			<div id="Choose2" class="Choose2">
+				<a href="chargeMyInfo.html" id="choose2" class="choose2">修改个人信息-></a>
+			</div>
+			<div id="Choose3" class="Choose3">
+				<a href="chargePWD.html" id="choose3" class="choose3">修改密码-></a>
+			</div>
+			
+		</div>
+		
+		
+		<div class="lead" id="lead">
+			<div class="leadtext" id="leadtext">
+				<a href="mainPage.html">教师管理系统</a>->个人信息管理
+			</div>
+		</div>
+		
+		
+		<div id="InformationShow">
+			<table class="infomrationTable" id="informationTable" border="1" cellspacing="0" >
+				<tr height="60px">
+					<td width="400px" align="center">教师姓名</td><td width="500px"></td>
+				</tr>
+				<tr height="60px">
+					<td width="400px" align="center">教师编号</td><td width="500px"></td>
+				</tr>
+				<tr height="60px">
+					<td width="400px" align="center">自我介绍</td><td width="500px"></td>
+				</tr>
+				<tr height="60px">
+					<td width="400px" align="center">邮箱地址</td><td width="500px"></td>
+				</tr>
+				<tr height="60px">
+					<td width="400px" align="center">所属学院</td><td width="500px"></td>
+				</tr>
+				
+				
+			</table>
+		</div>
+		
+		
+
+		
+	</body>
+</html>

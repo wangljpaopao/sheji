@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport">
+    <link rel="stylesheet" href="../css/admin_teacherMoti_1.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <title>管理员管理系统</title>
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+        <h1>&nbsp;&nbsp;管理员系统管理页面</h1>
+    </div>
+    <div id="menu">
+        <a title="查看自己的课程目录" href="admin_check.html" target="_top" class="a_1">
+            查看已有的课程目录->
+        </a>
+        <a title="课程信息维护" href="admin_lessonMoti.html" target="_top" class="a_1">
+            课程信息维护->
+        </a>
+        <a title="教师信息维护" href="admin_teacherMoti.html" target="_top" id="teacher">
+            教师信息维护->
+        </a>
+        <a title="学生信息维护" href="admin_studentMoti.html" target="_top" class="a_1">
+            学生信息维护->
+        </a>
+        <a href="admin.html" target="_top" class="a_1">
+            返回主页->
+        </a>
+        <a title="返回主页" href="vue1.html" target="_top" class="a_1">
+            退出->
+        </a>
+    </div>
+    <div id="head">
+        <h2>&nbsp;&nbsp;管理系统 > 教师信息维护</h2>
+    </div>
+    <div id="mainarea">
+        <div id="box">
+            <label for="aa"></label><input id="aa" placeholder="请输入教师编号" type="text" v-model="info_id">
+            <input type="button" value="搜索" id="bb" v-on:click="great">
+            <input type="button" value="新建" id="cc" onclick="window.location.href='admin_teacherMoti_detail_new.html'">
+        </div>
+        <div id="subjectmenu" v-if="show">
+            <ul class="subject">
+                <li style="padding:30px 0">
+                    <div class="titTxt">
+                        <p class="subject">
+                            &nbsp;&nbsp;{{info_name}}
+                        </p>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="subButton">
+                        <a class="btn_subject" v-on:click="urljump" target="_top">
+                            查看
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#mainarea',
+        data: {
+            show: false,
+            info_name: null,
+            info_id: null
+        },
+        methods: {
+            great: function(){
+                var id = this.info_id;
+                var url = 'http://localhost:8080/account/searchTeacher/' + id;
+                axios
+                    .get(url)
+                    .then(response =>{
+                    if(this.info_id == response.data.id){
+                    this.show = true;
+                    this.info_name = response.data.name;
+                }
+            })
+            },
+            urljump: function(){
+                var url1 = 'admin_teacherMoti_detail.html?id=' + this.info_id;
+                window.location.href = url1;
+            }
+        }
+    })
+</script>
+</body>
+</html>
